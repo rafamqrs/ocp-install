@@ -1,0 +1,41 @@
+apiVersion: v1
+baseDomain: aws-<domain>
+compute:
+- architecture: amd64
+  hyperthreading: Enabled
+  name: worker
+  platform:
+    aws:
+      rootVolume:
+        size: 250
+        type: gp2
+      type: m5.xlarge
+  replicas: 3
+controlPlane:
+  architecture: amd64
+  hyperthreading: Enabled
+  name: master
+  platform:
+    aws:
+      rootVolume:
+        size: 250
+        type: gp2
+      type: m5.xlarge
+  replicas: 3
+metadata:
+  creationTimestamp: null
+  name: rmarques
+networking:
+  clusterNetwork:
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  machineNetwork:
+  - cidr: 10.0.0.0/16
+  networkType: OpenShiftSDN
+  serviceNetwork:
+  - 172.30.0.0/16
+platform:
+  aws:
+    region: us-east-1
+publish: External
+pullSecret: '<past_your_pull_secret' 
